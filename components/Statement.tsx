@@ -12,6 +12,14 @@ export default function Statement() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1 }}
         >
+          <div className="flex flex-col items-center gap-6 mb-32 max-w-4xl mx-auto">
+            <p className="font-serif text-3xl md:text-5xl leading-tight md:leading-snug font-light italic text-[#fcfbf9]/80 text-center text-balance">
+              &quot;Colours are the deeds and sufferings of light.&quot;
+            </p>
+            <span className="font-sans text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#fcfbf9]/40">
+              — Johann Wolfgang von Goethe
+            </span>
+          </div>
           <h2 className="font-serif text-3xl md:text-4xl font-light tracking-tight mb-4">Artist Statement</h2>
           <div className="w-px h-16 bg-[#fcfbf9]/20 mx-auto"></div>
         </motion.div>
@@ -21,13 +29,16 @@ export default function Statement() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="font-serif text-2xl md:text-4xl leading-relaxed md:leading-snug font-light text-[#fcfbf9]/90"
+          className="font-serif text-lg md:text-xl leading-relaxed md:leading-loose font-light text-[#fcfbf9]/80 max-w-3xl mx-auto space-y-6 text-left"
         >
-          <p className="mb-8">
-            &quot;Color is the suffering of light.&quot;
+          <p>
+            Forms is a series of digital works where I explore perception itself as a medium. Influenced by Goethe&apos;s theory of color, the project explores what happens when simple geometric structures are placed in charged chromatic fields of emitted light.
           </p>
-          <p className="text-lg md:text-2xl text-[#fcfbf9]/70 max-w-2xl mx-auto">
-            In FORMS, I explore Goethe&apos;s assertion that color arises from the dynamic interplay of light and darkness. These 24 works are not merely visual objects, but temporal experiences—interrogating how our perception shifts as hues bleed, shapes dissolve, and time unfolds.
+          <p>
+            These images do not resolve at a glance. They unfold over time, producing afterimages, optical tension, retinal burn, and subtle shifts in spatial sensation. Forms seem to hover, recede, or detach from the screen as the viewer remains with them. An update to Goethe&apos;s &quot;Visionary images.&quot; This emphasizes a duration, staying with the work, juxtaposed against a world of torrential digital downpour. It imagines the digital as solid in time.
+          </p>
+          <p>
+            Rather than offering fixed representations, the series stages a relationship between work and observer. Each image changes according to duration, sequence, memory, and the physiological activity of the eye itself. In this way, Forms transforms digital color from a merely graphic tool into a site of lived experience. A relationship of the viewer and the viewed. The result is a visual mantra: a meditation on how seeing is never passive, and never finished.
           </p>
         </motion.div>
 
