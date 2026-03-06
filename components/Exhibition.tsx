@@ -50,8 +50,10 @@ function WorkItem({ work, index }: { work: typeof works[0], index: number }) {
           alt={work.title}
           width={800}
           height={1000}
-          className="w-full h-auto object-contain"
+          className="w-full h-auto object-contain select-none pointer-events-none"
           sizes="(max-width: 768px) 100vw, 66vw"
+          draggable="false"
+          onContextMenu={(e) => e.preventDefault()}
         />
       </div>
 
