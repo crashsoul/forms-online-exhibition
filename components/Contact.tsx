@@ -20,11 +20,10 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1 }}
-          className="text-center mb-16"
+          className="text-center mb-24"
         >
           <h2 className="font-serif text-3xl md:text-4xl font-light tracking-tight text-[#1a1a1a] mb-4">Inquiries</h2>
           <p className="font-sans text-xs uppercase tracking-[0.2em] text-[#1a1a1a]/50">For collectors and galleries</p>
-          <div className="w-px h-16 bg-[#1a1a1a]/20 mx-auto mt-8"></div>
         </motion.div>
 
         <motion.form
@@ -82,8 +81,10 @@ export default function Contact() {
           <button
             type="submit"
             disabled={status !== 'idle'}
-            className="mt-8 border border-[#1a1a1a] text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-[#fcfbf9] transition-colors py-4 px-8 text-xs uppercase tracking-[0.2em] w-full md:w-auto self-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="group relative mt-8 overflow-hidden bg-[#fcfbf9]/40 backdrop-blur-2xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full text-[#1a1a1a] transition-all duration-300 py-3 px-8 text-xs uppercase tracking-[0.2em] font-medium w-full md:w-auto self-center disabled:opacity-50 disabled:cursor-not-allowed z-10 hover:text-white hover:border-transparent"
           >
+            {/* Animated Gradient Background that appears on hover */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#F5D061] via-[#E65C4F] to-[#2B4C7E] bg-[length:200%_auto] animate-color-shift opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
             {status === 'idle' ? 'Send Inquiry' : status === 'submitting' ? 'Sending...' : 'Message Sent'}
           </button>
         </motion.form>
