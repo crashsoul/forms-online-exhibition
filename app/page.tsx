@@ -8,7 +8,7 @@ import Statement from '@/components/Statement';
 import Contact from '@/components/Contact';
 import { ArrowUp } from 'lucide-react';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
@@ -18,9 +18,21 @@ export default function Home() {
     window.scrollTo(0, 0);
   }, []);
 
+  // We check window size so mobile (which implies taller content relative to viewport)
+  // shifts to midnight much quicker before hitting the first actual artwork.
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const backgroundColor = useTransform(
     scrollYProgress,
-    [0, 0.02, 0.05, 0.90, 0.95, 0.98, 1],
+    isMobile
+      ? [0, 0.01, 0.02, 0.90, 0.95, 0.98, 1] // Faster transition on mobile so FORM 01 is dark
+      : [0, 0.01, 0.03, 0.90, 0.95, 0.98, 1], // Faster standard desktop transition
     ["#fcfbf9", "#fcfbf9", "#040814", "#040814", "#0f172a", "#fcfbf9", "#fcfbf9"]
   );
 
@@ -34,12 +46,13 @@ export default function Home() {
 
       <footer className="bg-transparent text-[#1a1a1a]/50 py-12 px-4 text-center text-xs uppercase tracking-[0.2em] font-sans flex flex-col items-center gap-8">
         <button
+          aria-label="Back to Top"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="group flex flex-col items-center gap-3 text-[#1a1a1a]/50 hover:text-[#1a1a1a] transition-colors"
         >
           <motion.div
-            whileHover={{ y: -5 }}
-            transition={{ duration: 0.2 }}
+            animate={{ y: [0, -5, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
           >
             <ArrowUp className="w-4 h-4" strokeWidth={1.5} />
           </motion.div>

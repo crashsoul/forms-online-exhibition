@@ -5,8 +5,8 @@
   --font-serif: var(--font-serif), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
-html, body {
-}
+html,
+body {}
 
 /* Hide scrollbar for a cleaner look */
 ::-webkit-scrollbar {
@@ -14,13 +14,50 @@ html, body {
   background: transparent;
 }
 
+.nav-link {
+  color: var(--nav-text);
+}
+
+.nav-link:hover {
+  color: var(--nav-hover);
+}
+
 @keyframes colorShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes colorShiftLiquid {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .animate-color-shift {
   background-size: 200% 200%;
   animation: colorShift 8s ease infinite;
+}
+
+.animate-color-shift-fast {
+  background-size: 300% 300%;
+  /* Using a custom cubic-bezier to create a very slow ease at the edges (yellow/blue)
+     and a much faster sweep through the middle (red) */
+  animation: colorShiftLiquid 5.33s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }

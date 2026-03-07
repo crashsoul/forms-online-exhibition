@@ -54,6 +54,7 @@ function WorkItem({ work, index }: { work: typeof works[0], index: number }) {
           sizes="(max-width: 768px) 100vw, 66vw"
           draggable="false"
           onContextMenu={(e) => e.preventDefault()}
+          priority={index < 2}
         />
       </div>
 

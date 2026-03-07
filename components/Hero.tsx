@@ -16,7 +16,7 @@ export default function Hero() {
           FORMS
         </h1>
         <div className="flex flex-col items-center gap-4">
-          <p className="font-sans text-sm uppercase tracking-[0.2em] text-[#1a1a1a]/60 font-medium max-w-md mx-auto">
+          <p className="font-sans text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.2em] text-[#1a1a1a]/60 font-medium max-w-md mx-auto px-4 md:px-0">
             An inquiry into Goethe&apos;s theory of color through emitted light, form, and the living eye.
           </p>
         </div>
@@ -29,6 +29,7 @@ export default function Hero() {
         className="absolute bottom-12 left-0 right-0 flex justify-center"
       >
         <button
+          aria-label="Enter Exhibition"
           onClick={(e) => {
             e.preventDefault();
             const target = document.getElementById('work-1');

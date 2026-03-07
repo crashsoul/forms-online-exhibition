@@ -1,24 +1,69 @@
 'use client';
 
-import { motion, useScroll, useMotionValueEvent } from 'motion/react';
-import { useState } from 'react';
+import { motion, useScroll, useMotionValueEvent, useTransform } from 'motion/react';
+import { useState, useEffect } from 'react';
 
 export default function FloatingNav() {
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if we are on mobile/tablet to give touch devices the scroll-up nav logic
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Mirrors the layout background transition to ensure contrast is kept automatically
+  const textColor = useTransform(
+    scrollYProgress,
+    isMobile
+      ? [0, 0.01, 0.02, 0.90, 0.95, 0.98, 1]
+      : [0, 0.01, 0.03, 0.90, 0.95, 0.98, 1],
+    // When background is white/light (#fcfbf9), text is graphite (#1a1a1a/70)
+    // When background is dark (#040814), text is off-white (#fcfbf9/70)
+    ["rgba(26,26,26,0.7)", "rgba(26,26,26,0.7)", "rgba(252,251,249,0.7)", "rgba(252,251,249,0.7)", "rgba(252,251,249,0.7)", "rgba(26,26,26,0.7)", "rgba(26,26,26,0.7)"]
+  );
+
+  // For the active/hover state which is fully opaque
+  const textHoverColor = useTransform(
+    scrollYProgress,
+    isMobile
+      ? [0, 0.01, 0.02, 0.90, 0.95, 0.98, 1]
+      : [0, 0.01, 0.03, 0.90, 0.95, 0.98, 1],
+    ["#1a1a1a", "#1a1a1a", "#fcfbf9", "#fcfbf9", "#fcfbf9", "#1a1a1a", "#1a1a1a"]
+  );
 
   useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+
     // If we're at the very top (Hero section), always show the nav
     if (latest < 50) {
       setHidden(false);
+      return;
+    }
+
+    if (isMobile) {
+      // -- MOBILE LOGIC --
+      // If we are scrolling UP, show the nav
+      if (latest < previous) {
+        setHidden(false);
+      }
+      // If we are scrolling DOWN, hide the nav
+      else if (latest > previous) {
+        setHidden(true);
+      }
     } else {
-      // Otherwise, hide it unless we're hovering over the trigger area
+      // -- DESKTOP LOGIC --
+      // Always hide it when not at the top, UNLESS the user hovers over the trigger area
       setHidden(!isHovering);
     }
   });
 
-  // Re-evaluate hidden state when hover changes
+  // Re-evaluate hidden state when hover changes (Desktop only basically)
   const handleMouseEnter = () => {
     setIsHovering(true);
     setHidden(false);
@@ -26,8 +71,8 @@ export default function FloatingNav() {
 
   const handleMouseLeave = () => {
     setIsHovering(false);
-    // Only hide if we aren't at the top
-    if (scrollY.get() >= 50) {
+    // Only hide if we aren't at the top (and not mobile overriding)
+    if (scrollY.get() >= 50 && !isMobile) {
       setHidden(true);
     }
   };
@@ -58,8 +103,12 @@ export default function FloatingNav() {
         className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        style={{
+          "--nav-text": textColor,
+          "--nav-hover": textHoverColor,
+        } as any}
       >
-        <div className="bg-[#fcfbf9]/40 backdrop-blur-2xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full px-6 py-3 flex items-center gap-8">
+        <div className="bg-[#fcfbf9]/5 backdrop-blur-md backdrop-saturate-[1.5] border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.6)] rounded-full px-6 py-3 flex items-center gap-8">
           {navItems.map((item) => (
             <a
               key={item.name}
@@ -101,7 +150,7 @@ export default function FloatingNav() {
                   target?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="text-xs uppercase tracking-[0.15em] font-medium text-[#1a1a1a]/70 hover:text-[#1a1a1a] transition-colors"
+              className="nav-link text-xs uppercase tracking-[0.15em] font-medium transition-colors duration-200"
             >
               {item.name}
             </a>

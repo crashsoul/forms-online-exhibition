@@ -15,7 +15,23 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: 'FORMS | Online Exhibition',
-  description: 'An online exhibition for the art series FORMS, inspired by Goethe\'s Theory of Color.',
+  description: "An online exhibition for the art series FORMS, inspired by Goethe's Theory of Color.",
+  keywords: ['Art', 'Goethe', 'Theory of Color', 'Digital Exhibition', 'Forms', 'Generative Art'],
+  authors: [{ name: 'FORMS Artist' }],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'FORMS | Online Exhibition',
+    description: "An online exhibition for the art series FORMS, inspired by Goethe's Theory of Color.",
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FORMS | Online Exhibition',
+    description: "An online exhibition for the art series FORMS, inspired by Goethe's Theory of Color.",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
