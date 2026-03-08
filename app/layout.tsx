@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Cormorant_Garamond } from 'next/font/google';
 import './globals.css'; // Global styles
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 
 const inter = Inter({
   subsets: ['latin'],
@@ -39,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
       <body className="font-sans bg-[#fcfbf9] text-[#1a1a1a] antialiased selection:bg-[#1a1a1a] selection:text-[#fcfbf9] min-h-screen flex flex-col" suppressHydrationWarning>
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
