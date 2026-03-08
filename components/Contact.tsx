@@ -152,10 +152,10 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={status !== 'idle'}
-                className="group relative mt-16 md:mt-8 overflow-hidden bg-[#fcfbf9]/5 backdrop-blur-md backdrop-saturate-[1.5] border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.6)] rounded-full text-[#1a1a1a] transition-all duration-300 py-3 px-8 text-xs uppercase tracking-[0.2em] font-medium w-full md:w-auto self-center disabled:opacity-50 disabled:cursor-not-allowed z-10 hover:text-white hover:border-transparent"
+                className="group relative mt-16 md:mt-8 overflow-hidden bg-[#fcfbf9]/5 backdrop-blur-md backdrop-saturate-[1.5] border border-transparent md:border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.6)] rounded-full text-white md:text-[#1a1a1a] transition-all duration-300 py-3 px-8 text-xs uppercase tracking-[0.2em] font-medium w-full md:w-auto self-center disabled:opacity-50 disabled:cursor-not-allowed z-10 md:hover:text-white md:hover:border-transparent"
               >
                 {/* Animated Gradient Background that appears on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#F5D061] via-[#E65C4F] to-[#2B4C7E] bg-[length:200%_auto] animate-color-shift-fast opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#F5D061] via-[#E65C4F] to-[#2B4C7E] bg-[length:200%_auto] animate-color-shift-fast opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                 {status === 'idle' ? 'Send Inquiry' : status === 'submitting' ? 'Sending...' : 'Message Sent'}
               </button>
             </motion.form>
