@@ -6,12 +6,7 @@ import { ArrowDown } from 'lucide-react';
 export default function Hero() {
   return (
     <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="text-center z-10"
-      >
+      <div className="text-center z-10 animate-fade-up">
         <h1 className="font-serif text-[18vw] leading-[0.8] font-light tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#F5D061] via-[#E65C4F] to-[#2B4C7E] animate-color-shift">
           FORMS
         </h1>
@@ -20,7 +15,7 @@ export default function Hero() {
             An inquiry into Goethe&apos;s theory of color through emitted light, form, and the living eye.
           </p>
         </div>
-      </motion.div>
+      </div>
 
       <motion.div
         initial={{ opacity: 0 }}
