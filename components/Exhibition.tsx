@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { motion } from 'motion/react';
 
 const descriptions = [
   "A nearly-vanishing disc tests the threshold at which form stops being seen as object and begins to exist as afterimage, atmosphere, and memory.",
@@ -40,26 +41,30 @@ const works = Array.from({ length: 24 }).map((_, i) => ({
 
 function WorkItem({ work, index }: { work: typeof works[0], index: number }) {
   return (
-    <div
+    <section
       id={`work-${work.id}`}
-      className="relative w-full max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-24 py-32"
+      className="h-screen w-full snap-start relative flex items-center justify-center overflow-hidden"
     >
-      <div className={`w-full md:w-2/3 flex justify-center ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
-        <Image
-          src={`/assets/${work.id}.png`}
-          alt={work.title}
-          width={800}
-          height={1000}
-          className="w-full h-auto object-contain select-none pointer-events-none"
-          sizes="(max-width: 768px) 100vw, 66vw"
-          draggable="false"
-          onContextMenu={(e) => e.preventDefault()}
-          priority={index < 2}
-          unoptimized={true}
-        />
-      </div>
+      <Image
+        src={`/assets/${work.id}.png`}
+        alt={work.title}
+        width={800}
+        height={1000}
+        className="max-h-[75vh] max-w-[80vw] object-contain select-none pointer-events-none"
+        sizes="(max-width: 768px) 100vw, 80vw"
+        draggable="false"
+        onContextMenu={(e) => e.preventDefault()}
+        priority={index < 2}
+        unoptimized={true}
+      />
 
-      <div className={`w-full md:w-1/3 flex flex-col gap-6 ${index % 2 !== 0 ? 'md:order-1 items-end text-right' : 'items-start text-left'}`}>
+      <motion.div
+        className="absolute bottom-12 left-6 md:left-12 lg:left-24 max-w-[40ch] flex flex-col gap-6"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.8 }}
+        transition={{ delay: 1.5, duration: 1.0, ease: "linear" }}
+      >
         <div className="flex flex-col gap-1">
           <span className="text-xs font-mono text-[#fcfbf9]/40 tracking-widest">{String(work.id).padStart(2, '0')} / 24</span>
           <h3 className="font-sans text-xl md:text-2xl uppercase tracking-[0.1em] text-[#fcfbf9]">{work.title}</h3>
@@ -68,29 +73,27 @@ function WorkItem({ work, index }: { work: typeof works[0], index: number }) {
           <span>{work.medium}</span>
           <span>{work.year}</span>
         </div>
-        <p className="text-sm leading-loose text-[#fcfbf9]/70 max-w-sm font-sans italic tracking-wide text-pretty mt-2">
+        <p className="text-sm leading-loose text-[#fcfbf9]/70 font-sans italic tracking-wide text-pretty mt-2">
           {work.description}
         </p>
-      </div>
-    </div>
+      </motion.div>
+    </section>
   );
 }
 
 export default function Exhibition() {
   return (
-    <section id="exhibition" className="min-h-screen bg-transparent py-24 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mt-24 mb-16">
+    <section id="exhibition" className="h-screen w-full overflow-y-scroll snap-y snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden bg-transparent">
+      <section className="h-screen w-full snap-start relative flex flex-col items-center justify-center">
+        <div className="text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-light tracking-tight text-[#fcfbf9] mb-4">The Exhibition</h2>
           <div className="w-px h-16 bg-[#fcfbf9]/20 mx-auto"></div>
         </div>
+      </section>
 
-        <div className="flex flex-col gap-16 md:gap-32">
-          {works.map((work, index) => (
-            <WorkItem key={work.id} work={work} index={index} />
-          ))}
-        </div>
-      </div>
+      {works.map((work, index) => (
+        <WorkItem key={work.id} work={work} index={index} />
+      ))}
     </section>
   );
 }
