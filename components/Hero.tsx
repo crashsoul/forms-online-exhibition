@@ -12,7 +12,7 @@ export default function Hero() {
         </h1>
         <div className="flex flex-col items-center gap-4">
           <p className="font-sans text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.2em] text-[#1a1a1a]/60 font-medium max-w-md mx-auto px-4 md:px-0">
-            An inquiry into Goethe&apos;s theory of color through emitted light, form, and the living eye.
+            An inquiry into Goethe&apos;s theory of color through emitted light, form, and eye.
           </p>
         </div>
       </div>

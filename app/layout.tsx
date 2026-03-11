@@ -6,12 +6,14 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({
   subsets: ['latin'],
+  display: 'swap',
   variable: '--font-sans',
 });
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400'], // Only loading the weights actually used in the app
+  display: 'swap',
   variable: '--font-serif',
 });
 
