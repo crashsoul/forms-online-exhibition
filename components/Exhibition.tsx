@@ -81,8 +81,8 @@ export default function Exhibition() {
     <section id="exhibition" className="min-h-screen bg-transparent py-24 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mt-24 mb-16">
-          <h2 className="font-serif text-3xl md:text-4xl font-light tracking-tight text-[#fcfbf9] mb-4">The Exhibition</h2>
-          <div className="w-px h-16 bg-[#fcfbf9]/20 mx-auto"></div>
+          <h2 className="font-serif text-3xl md:text-4xl font-light tracking-tight text-[#fcfbf9] mb-4"></h2>
+          <div className="w-px h-16 mx-auto"></div>
         </div>
 
         <div className="flex flex-col gap-16 md:gap-32">
