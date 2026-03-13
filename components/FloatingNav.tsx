@@ -146,7 +146,7 @@ export default function FloatingNav() {
                 } else {
                   // For other links, scroll to section
                   e.preventDefault();
-                  const target = document.querySelector(item.href);
+                  const target = document.querySelector(item.href) as HTMLElement;
                   if (!target) return;
 
                   if (isMobile) {
@@ -154,7 +154,29 @@ export default function FloatingNav() {
                     // all 24 artwork images during a smooth scroll animation
                     target.scrollIntoView({ behavior: 'instant' });
                   } else {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    // Use manual requestAnimationFrame scroll to avoid the browser's
+                    // smooth scroll stopping short on very long pages with heavy content
+                    const targetPosition = target.getBoundingClientRect().top + window.scrollY;
+                    const startPosition = window.scrollY;
+                    const distance = targetPosition - startPosition;
+                    const duration = 1200;
+                    let start: number | null = null;
+
+                    const ease = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+                    const animation = (currentTime: number) => {
+                      if (start === null) start = currentTime;
+                      const timeElapsed = currentTime - start;
+                      const progress = Math.min(timeElapsed / duration, 1);
+
+                      window.scrollTo(0, startPosition + distance * ease(progress));
+
+                      if (timeElapsed < duration) {
+                        requestAnimationFrame(animation);
+                      }
+                    };
+
+                    requestAnimationFrame(animation);
                   }
                 }
               }}
