@@ -11,7 +11,7 @@ export default function Hero() {
           FORMS
         </h1>
         <div className="flex flex-col items-center gap-4">
-          <p className="font-sans text-[clamp(1.5rem,3.5vw,2.4rem)] tracking-[-0.015em] max-w-[45ch] mx-auto px-4 md:px-0 text-[#1a1a1a]/60 font-medium leading-tight">
+          <p className="font-sans text-[clamp(1rem,2vw,1.5rem)] tracking-[-0.015em] max-w-[45ch] mx-auto px-6 md:px-0 text-[#1a1a1a]/50 font-medium leading-relaxed">
             An inquiry into Goethe&apos;s theory of color through emitted light, form, and eye.
           </p>
         </div>
