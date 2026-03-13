@@ -154,11 +154,12 @@ export default function FloatingNav() {
                     // all 24 artwork images during a smooth scroll animation
                     target.scrollIntoView({ behavior: 'instant' });
                   } else {
-                    // Use manual requestAnimationFrame scroll to avoid the browser's
-                    // smooth scroll stopping short on very long pages with heavy content
-                    const targetPosition = target.getBoundingClientRect().top + window.scrollY;
+                    // Use manual requestAnimationFrame scroll that recalculates target
+                    // position each frame. Lazy-loaded images shift the layout during scroll,
+                    // so a one-time calculation would land at the wrong position.
                     const startPosition = window.scrollY;
-                    const distance = targetPosition - startPosition;
+                    const initialTargetPosition = target.getBoundingClientRect().top + window.scrollY;
+                    const initialDistance = initialTargetPosition - startPosition;
                     const duration = 1200;
                     let start: number | null = null;
 
@@ -169,7 +170,12 @@ export default function FloatingNav() {
                       const timeElapsed = currentTime - start;
                       const progress = Math.min(timeElapsed / duration, 1);
 
-                      window.scrollTo(0, startPosition + distance * ease(progress));
+                      // Recalculate target position each frame to account for
+                      // layout shifts from lazy-loaded images
+                      const currentTargetPosition = target.getBoundingClientRect().top + window.scrollY;
+                      const currentDistance = currentTargetPosition - startPosition;
+
+                      window.scrollTo(0, startPosition + currentDistance * ease(progress));
 
                       if (timeElapsed < duration) {
                         requestAnimationFrame(animation);
