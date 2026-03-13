@@ -8,7 +8,7 @@ export default function Hero() {
     <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden px-4">
       <div className="text-center z-10 animate-fade-up">
         <h1 className="font-serif text-[18vw] leading-[0.8] font-light tracking-[0.04em] [font-kerning:normal] mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#F5D061] via-[#E65C4F] to-[#2B4C7E] animate-color-shift">
-          FORMS
+          F<span className="tracking-[0.01em]">O</span>RMS
         </h1>
         <div className="flex flex-col items-center gap-4">
           <p className="font-sans text-[clamp(1rem,2vw,1.5rem)] tracking-[-0.015em] max-w-[45ch] mx-auto px-6 md:px-0 text-[#1a1a1a]/50 font-medium leading-relaxed">
