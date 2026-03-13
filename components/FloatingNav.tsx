@@ -144,10 +144,18 @@ export default function FloatingNav() {
 
                   requestAnimationFrame(animation);
                 } else {
-                  // For other links, simple smooth scroll
+                  // For other links, scroll to section
                   e.preventDefault();
                   const target = document.querySelector(item.href);
-                  target?.scrollIntoView({ behavior: 'smooth' });
+                  if (!target) return;
+
+                  if (isMobile) {
+                    // On mobile, jump directly to avoid Safari crashing from rendering
+                    // all 24 artwork images during a smooth scroll animation
+                    target.scrollIntoView({ behavior: 'instant' });
+                  } else {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }
               }}
               className="nav-link text-xs uppercase tracking-[0.15em] font-medium transition-colors duration-200"
